@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kalkulator Akta Kerja 1955</title>
   <link rel="stylesheet" href="style.css">
+  <!-- PUSTAKA IKON KORPORAT -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -36,90 +38,90 @@
 <!-- ========================================== -->
 <div class="app-layout">
   
-<!-- SIDEBAR 2026 (KEBABOOOM EFFECT) -->
+<!-- SIDEBAR (GAYA KORPORAT MODEN) -->
   <aside class="sidebar-2026">
     
     <div class="sidebar-brand" style="padding-bottom: 5px;">
       <!-- Logo sebenar anda -->
-      <img src="logo-aktakerja.png" alt="Logo Kalkulator Akta Kerja" style="width: 200px; height: auto; margin-bottom: 10px; border-radius: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
+      <img src="logo-aktakerja.png" alt="Logo Kalkulator Akta Kerja" style="width: 200px; height: auto; margin-bottom: 5px; border-radius: 12px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));">
       
-      <!-- TAJUK DIALIH KE SINI SUPAYA KEKAL STATIK (TIDAK SCROLL) -->
-      <p class="menu-label" style="font-size: 17.5px; font-weight: 900; color: #1f4e79; text-shadow: 2px 2px 5px rgba(0,0,0,0.2); letter-spacing: 1px; text-decoration: underline; margin-top: 15px; margin-bottom: 0;">PILIHAN KALKULATOR</p>
+      <!-- TAJUK MINIMALIS (Tiada shadow, tiada underline) -->
+      <p class="menu-label" style="font-size: 11px; font-weight: 700; color: #829ab1; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 25px; margin-bottom: 0;">Pilihan Kalkulator</p>
     </div>
 
     <!-- KAWASAN SCROLL BERMULA DI SINI -->
     <div class="sidebar-menu" style="padding-top: 15px;">
       
       <button class="menu-btn active" onclick="tambahKalkulator('orp')">
-        <span class="icon">📊</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Kadar Upah Biasa (ORP)</span>
+        <i class="fa-solid fa-calculator icon"></i>
+        <span>Kadar Upah Biasa (ORP)</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('otBiasa')">
-        <span class="icon">⏱️</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">OT Hari Biasa</span>
+        <i class="fa-regular fa-clock icon"></i>
+        <span>OT Hari Biasa</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('rehatKurang')">
-        <span class="icon">🌴</span> 
+        <i class="fa-solid fa-mug-hot icon"></i>
         <div style="line-height: 1.3; text-align: left;">
-          <span style="font-size: 14px; text-transform: uppercase;">Hari Rehat</span><br>
-          <span style="font-size: 11px; font-weight: 500; opacity: 0.75; text-transform: none;">(½ Hari @ Kurang)</span>
+          <span>Hari Rehat</span><br>
+          <span style="font-size: 11px; font-weight: 500; opacity: 0.6; text-transform: none;">(½ Hari @ Kurang)</span>
         </div>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('rehatLebih')">
-        <span class="icon">🌴</span> 
+        <i class="fa-solid fa-couch icon"></i>
         <div style="line-height: 1.3; text-align: left;">
-          <span style="font-size: 14px; text-transform: uppercase;">Hari Rehat</span><br>
-          <span style="font-size: 11px; font-weight: 500; opacity: 0.75; text-transform: none;">(Lebih ½ Hari)</span>
+          <span>Hari Rehat</span><br>
+          <span style="font-size: 11px; font-weight: 500; opacity: 0.6; text-transform: none;">(Lebih ½ Hari)</span>
         </div>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('sec18A')">
-        <span class="icon">⚖️</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Seksyen 18A</span>
+        <i class="fa-solid fa-scale-balanced icon"></i>
+        <span>Seksyen 18A</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('otRehat')">
-        <span class="icon">⏳</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">OT Hari Rehat</span>
+        <i class="fa-solid fa-stopwatch icon"></i>
+        <span>OT Hari Rehat</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('kelepasan')">
-        <span class="icon">🎉</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Hari Kelepasan</span>
+        <i class="fa-regular fa-calendar-check icon"></i>
+        <span>Hari Kelepasan</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('otKelepasan')">
-        <span class="icon">🚀</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">OT Hari Kelepasan</span>
+        <i class="fa-solid fa-business-time icon"></i>
+        <span>OT Hari Kelepasan</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('cutiTahunan')">
-        <span class="icon">✈️</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Cuti Tahunan</span>
+        <i class="fa-solid fa-plane-departure icon"></i>
+        <span>Cuti Tahunan</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('cutiSakit')">
-        <span class="icon">🏥</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Cuti Sakit</span>
+        <i class="fa-solid fa-briefcase-medical icon"></i>
+        <span>Cuti Sakit</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('notis')">
-        <span class="icon">📜</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Gaji Ganti Notis</span>
+        <i class="fa-solid fa-file-signature icon"></i>
+        <span>Gaji Ganti Notis</span>
       </button>
       
       <button class="menu-btn" onclick="tambahKalkulator('faedah')">
-        <span class="icon">💼</span> 
-        <span style="font-size: 14px; text-transform: uppercase;">Faedah Penamatan</span>
+        <i class="fa-solid fa-hand-holding-dollar icon"></i>
+        <span>Faedah Penamatan</span>
       </button>
       
-      <!-- BUTANG JANA LAPORAN PENUH (DI BAWAH FAEDAH PENAMATAN) -->
-      <button class="menu-btn" onclick="janaLaporanPenuh()" style="margin-top: 35px; background: #28a745; color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(40,167,69,0.3);">
-        <span class="icon" style="filter: brightness(2);">📄</span> 
-        <span style="font-size: 14px; text-transform: uppercase; font-weight: bold;">Jana Laporan Penuh</span>
+      <!-- BUTANG JANA LAPORAN PENUH (GAYA KORPORAT) -->
+      <button class="menu-btn" onclick="janaLaporanPenuh()" style="margin-top: 30px; background: #28a745; color: white; border-radius: 6px; box-shadow: 0 4px 6px rgba(40,167,69,0.2);">
+        <i class="fa-solid fa-file-pdf icon" style="color: white !important;"></i>
+        <span style="font-size: 13.5px; font-weight: 600;">Jana Laporan Penuh</span>
       </button>
     </div>
   </aside>
