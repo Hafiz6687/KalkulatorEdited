@@ -36,15 +36,21 @@
 <!-- ========================================== -->
 <div class="app-layout">
   
-  <!-- SIDEBAR 2026 (KEBABOOOM EFFECT) -->
+<!-- SIDEBAR 2026 (KEBABOOOM EFFECT) -->
   <aside class="sidebar-2026">
-<div class="sidebar-brand">
+    
+    <div class="sidebar-brand" style="padding-bottom: 5px;">
       <!-- Logo sebenar anda -->
       <img src="logo-aktakerja.png" alt="Logo Kalkulator Akta Kerja" style="width: 200px; height: auto; margin-bottom: 10px; border-radius: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
-  </div>
-<div class="sidebar-menu">
-        <p class="menu-label" style="font-size: 17.5px; font-weight: 900; color: #1f4e79; text-shadow: 2px 2px 5px rgba(0,0,0,0.2); letter-spacing: 1px; text-decoration: underline;">PILIHAN KALKULATOR</p>
-        <button class="menu-btn active" onclick="tambahKalkulator('orp')">
+      
+      <!-- TAJUK DIALIH KE SINI SUPAYA KEKAL STATIK (TIDAK SCROLL) -->
+      <p class="menu-label" style="font-size: 17.5px; font-weight: 900; color: #1f4e79; text-shadow: 2px 2px 5px rgba(0,0,0,0.2); letter-spacing: 1px; text-decoration: underline; margin-top: 15px; margin-bottom: 0;">PILIHAN KALKULATOR</p>
+    </div>
+
+    <!-- KAWASAN SCROLL BERMULA DI SINI -->
+    <div class="sidebar-menu" style="padding-top: 15px;">
+      
+      <button class="menu-btn active" onclick="tambahKalkulator('orp')">
         <span class="icon">📊</span> 
         <span style="font-size: 14px; text-transform: uppercase;">Kadar Upah Biasa (ORP)</span>
       </button>
