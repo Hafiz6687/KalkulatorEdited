@@ -1,157 +1,246 @@
 /* =====================================================
-   KALKULATOR AKTA KERJA 1955 - TEMA "MYSYSTEM"
-   AMARAN TEGAS DIPATUHI: FUNGSI ASAL KEKAL SELAMAT 100%
+   KALKULATOR AKTA KERJA 1955
+   PROFESSIONAL STYLE.CSS - VERSI GRID 4 LAJUR (KUNCI)
 ===================================================== */
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+*{ margin:0; padding:0; box-sizing:border-box; font-family: Arial, Helvetica, sans-serif; }
 
-body { background: #e8ecf1; height: 100vh; overflow: hidden; }
+/* =====================================================
+   BODY & WRAPPER
+===================================================== */
+body{ background:#f4f6f9; min-height:100vh; padding:20px; }
+.wrapper{ width:100%; max-width:1600px; margin:auto; }
 
-/* --- 1. LAYOUT UTAMA --- */
-.app-layout { display: flex; height: 100vh; width: 100vw; }
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+.page-title{ text-align:center; margin-bottom:30px; }
+.page-title h1{ font-size:36px; font-weight:700; color:#1f4e79; margin-bottom:10px; }
+.page-title p{ font-size:16px; line-height:1.6; color:#555; }
 
-/* --- 2. SIDEBAR (TEMA MYSYSTEM) --- */
-.sidebar-2026 {
-    width: 260px;
-    background: #e8ecf1; /* Warna kelabu MySystem */
-    border-right: 2px solid #d1d8e0;
+/* =====================================================
+   CALCULATOR GRID (PAKSA 4 LAJUR TEPAT PADA DESKTOP)
+===================================================== */
+.calculator-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(220px, 1fr)); /* Paksa 4 lajur & elak kotak jadi terlalu kurus */
+    gap: 20px;
+    align-items: stretch !important;
+}
+
+/* =====================================================
+   CALCULATOR CARD
+===================================================== */
+.calculator-card{
+    background:white;
+    border-radius:15px;
+    padding:22px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+    transition: transform .2s ease, box-shadow .2s ease;
     display: flex;
     flex-direction: column;
-    z-index: 50;
+    height: 100%;
 }
 
-.sidebar-brand { padding: 30px 20px 10px; text-align: center; }
-.sidebar-brand img { width: 90px; margin-bottom: 10px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-.sidebar-brand h2 { font-size: 22px; color: #0056b3; font-weight: 800; margin: 0; }
-
-.user-profile {
-    display: flex; align-items: center; gap: 10px; padding: 15px 20px;
-    border-bottom: 1px solid #d1d8e0; margin-bottom: 10px;
-}
-.user-profile img { width: 45px; height: 45px; border-radius: 5px; object-fit: cover; }
-.user-profile .user-info { font-size: 12px; font-weight: 600; color: #333; line-height: 1.3; }
-
-.sidebar-menu { flex: 1; overflow-y: auto; padding: 10px 15px; }
-.sidebar-menu::-webkit-scrollbar { width: 5px; }
-.sidebar-menu::-webkit-scrollbar-thumb { background: #c0c8d0; }
-
-.menu-label { font-size: 12px; font-weight: bold; color: #555; margin: 15px 0 10px 10px; }
-
-.menu-btn {
-    width: 100%; text-align: left; padding: 12px 15px; background: transparent; border: none;
-    font-size: 13px; font-weight: 600; color: #444; cursor: pointer;
-    display: flex; align-items: center; gap: 10px; margin-bottom: 2px; transition: 0.2s;
+.calculator-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
 }
 
-.menu-btn:hover { background: rgba(255,255,255,0.5); color: #0056b3; }
-
-.menu-btn.active {
-    background: #ffffff; /* Latar putih untuk menu aktif */
-    color: #0056b3; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+.calculator-card h2{
+    text-align:center;
+    color:#1f4e79;
+    font-size:24px;
+    line-height:1.3;
+    margin-bottom:18px;
 }
 
-/* --- 3. KANDUNGAN UTAMA (KANAN) --- */
-.main-content {
-    flex: 1; overflow-y: auto; padding: 20px 30px; background: #f0f4f8; scroll-behavior: smooth;
+/* =====================================================
+   FORM GROUP & INPUTS
+===================================================== */
+.form-group{ margin-bottom:15px; }
+.form-group label{ display:block; font-weight:bold; color:#333; margin-bottom:6px; }
+
+.salary-input, .salary-total, .number-input, .date-input, .select-input{
+    width:100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    background:white;
+    outline:none;
 }
 
-.main-header {
-    background: transparent; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
-}
-.main-header h1 { font-size: 20px; color: #333; margin: 0; font-weight: bold; }
-.main-header p { display: none; } /* Sembunyikan teks panjang supaya kemas seperti header MySystem */
-
-/* --- 4. KAD KALKULATOR --- */
-.calculator-grid { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
-
-.calculator-card {
-    background: white; border-radius: 8px; padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    flex: 1 1 400px; max-width: 500px; border: 1px solid #e2e8f0; position: relative;
-}
-.calculator-card[style*="span 2"], .rumusan-card { max-width: 100% !important; flex: 1 1 100% !important; }
-
-/* Tajuk Utama Kad */
-.calculator-card h2 {
-    font-size: 18px; color: #333; margin-bottom: 25px; text-align: left;
-    padding-bottom: 15px; border-bottom: 1px solid #eee;
+.salary-input:focus, .salary-total:focus, .number-input:focus, .date-input:focus, .select-input:focus{
+    border-color:#1f4e79;
 }
 
-/* Tajuk Bahagian bertema MySystem (Calit Biru) */
-.calculator-card h3, .pdf-module h3 {
-    font-size: 15px !important; color: #111 !important; text-align: left;
-    border-bottom: none !important; margin-bottom: 20px !important;
-    padding-left: 10px !important; border-left: 4px solid #0056b3; /* Calit biru MySystem */
+.salary-total{ background:#f1f1f1; font-weight:bold; }
+.number-input{ text-align:left; }
+.select-input{ cursor:pointer; }
+
+/* =====================================================
+   BUTTON SYSTEM
+===================================================== */
+.button-group{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
-.hidden-template { display: none !important; }
-
-.close-card-btn {
-    position: absolute; top: 15px; right: 15px; background: #ff4d4f; color: white; border: none;
-    width: 25px; height: 25px; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;
+.btn, .button-group button{
+    flex:1;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    background:#1f4e79;
+    color:white;
 }
-.close-card-btn:hover { background: #d9363e; }
 
-/* --- 5. BENTUK FORM (MENDATAR SEPERTI MYSYSTEM) --- */
-.form-group {
-    display: flex; align-items: center; margin-bottom: 15px; gap: 15px;
+.btn:hover, .button-group button:hover{ opacity:.9; }
+.btn-primary{ background:#1f4e79; color:white; }
+.btn-primary:hover{ background:#163a5c; }
+.btn-reset, .reset-btn{ background:#dc3545 !important; color:white; }
+.btn-reset:hover, .reset-btn:hover{ background:#b52a37 !important; }
+
+/* =====================================================
+   RESULT CONTAINER
+===================================================== */
+.result-box, .result-section{
+    background:#f8fafc;
+    border-left: 5px solid #1f4e79;
+    border-radius:8px;
+    padding: 15px 18px;
+    margin-top: auto; /* Tolak result ke bawah secara automatik */
 }
-.form-group label {
-    flex: 0 0 130px; /* Lebar label sebelah kiri */
-    text-align: right; font-weight: 600; color: #444; font-size: 13px; margin: 0;
+
+.result-box h3, .result-section h3{
+    display:block;
+    width:100%;
+    margin: 0 0 15px;
+    text-align:center;
+    font-size:20px;
+    font-weight:700;
+    color:#1f4e79;
 }
-.form-group label::after {
-    content: " *"; color: red; /* Bintang merah wajib di hujung label */
+
+/* =====================================================
+   RESULT ROWS & TABLES
+===================================================== */
+.result-row{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    align-items:center;
+    width:100%;
+    gap:20px;
+    padding:8px 0;
 }
-.salary-input, .salary-total, .number-input, .date-input, .select-input {
-    flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; background: #fff;
+
+.result-row label, .result-row > span:first-child{
+    font-size:14px;
+    font-weight:600;
+    color:#333;
+    line-height:1.4;
+    text-align:left;
 }
-.salary-input:focus, .number-input:focus, .date-input:focus, .select-input:focus {
-    border-color: #0056b3; outline: none; box-shadow: 0 0 5px rgba(0,86,179,0.2);
+
+.result-row strong, .result-row input{
+    min-width:120px;
+    font-size:14px;
+    font-weight:700;
+    color:#111;
+    text-align:right;
+    border:none;
+    background:transparent;
+    outline:none;
 }
-.salary-total { background: #f8f9fa; font-weight: bold; color: #333; cursor: not-allowed; }
 
-/* Membetulkan layout jika ada div yang mengganggu susunan form-group mendatar */
-#tbbFixedSalaryGroup, #tbbVariableSalaryGroup, #tbbFormulaSalaryGroup { width: 100%; }
+/* SEKSYEN 18A TBL */
+.section18a-breakdown{ width:100%; margin-top:15px; border-radius:8px; overflow:hidden; }
+.section18a-header, .section18a-row{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; width:100%; }
+.section18a-header{ background:#1f4e79; color:white; font-weight:bold; }
+.section18a-row{ background:white; border-bottom: 1px solid #ddd; }
+.section18a-header span, .section18a-row span{ padding:10px; font-size:14px; text-align:center; }
+.section18a-row span:first-child{ text-align:left; }
+.section18a-row span:nth-child(2), .section18a-row span:nth-child(3){ text-align:right; }
 
-/* --- 6. BUTANG KIRA & RESET --- */
-.button-group { display: flex; gap: 10px; margin: 25px 0 15px 145px; } /* Tolak butang selari dengan input */
-.btn { padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; color: white; flex: none; }
-.btn-primary { background: #0056b3; }
-.btn-primary:hover { background: #004494; }
-.btn-reset { background: #dc3545; }
-.btn-reset:hover { background: #c82333; }
-
-/* --- 7. KOTAK KEPUTUSAN --- */
-.result-box {
-    background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; padding: 20px; margin-top: auto;
+/* =====================================================
+   WARNING BOX
+===================================================== */
+.warning-box{
+    margin-top:30px;
+    background:#fff8e1;
+    border-left: 6px solid #ffc107;
+    padding:22px 25px;
+    border-radius:12px;
 }
-.result-box h3 { border-left: none !important; padding-left: 0 !important; text-align: center !important; border-bottom: 1px solid #ddd !important; padding-bottom: 10px !important; margin-bottom: 15px !important; color: #0056b3 !important; }
+.warning-box h3{ text-align:center; font-size:18px; font-weight:700; color:#856404; margin-bottom:15px; }
+.warning-box ol{ padding-left:28px; margin:0; }
+.warning-box li{ margin-bottom:10px; line-height:1.5; font-size:14px; color:#444; }
 
-.result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #eee; }
-.result-row span { font-size: 13px; color: #555; }
-.result-row strong { font-size: 14px; color: #111; }
+/* =====================================================
+   RESPONSIVE LAYOUT (MEDIA QUERIES DIPERBAIKI)
+===================================================== */
 
-.highlight-row { background: #eef2f7; border: 1px solid #d1d8e0; padding: 12px; border-radius: 4px; margin-top: 15px; border-bottom: none; }
-.highlight-row span { color: #0056b3 !important; font-weight: bold; }
-.highlight-row strong { font-size: 18px !important; color: #0056b3 !important; }
-
-/* --- 8. BUTANG TERAPUNG --- */
-.btn-floating {
-    position: fixed; z-index: 1000; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;
+/* TABLET KECIL (Skrin diturunkan kepada 950px ke bawah) */
+@media screen and (max-width: 950px) {
+    .calculator-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Magik: Jika skrin masuk mod 2 lajur, kita matikan 'span 2' 
+       supaya ia kembali jadi saiz kotak biasa dan muat bersebelahan! */
+    .calculator-card[style*="span 2"] {
+        grid-column: span 1 !important;
+    }
 }
-.log-keluar { top: 15px; right: 20px; background: #dc3545; color: white; }
-.reset-semua { top: 55px; right: 20px; background: #fd7e14; color: white; }
-.jana-pdf { bottom: 30px; right: 30px; background: #28a745; color: white; padding: 12px 25px; font-size: 14px; border-radius: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-/* --- 9. RESPONSIVE --- */
-@media screen and (max-width: 900px) {
-    .app-layout { flex-direction: column; }
-    .sidebar-2026 { width: 100%; height: auto; flex-direction: row; align-items: center; padding: 10px; border-bottom: 1px solid #d1d8e0; overflow-x: auto; }
-    .sidebar-brand, .user-profile, .menu-label { display: none; }
-    .sidebar-menu { display: flex; padding: 0; white-space: nowrap; }
-    .menu-btn { padding: 8px 15px; margin: 0 5px 0 0; }
-    .form-group { flex-direction: column; align-items: flex-start; gap: 5px; }
-    .form-group label { text-align: left; width: 100%; }
-    .button-group { margin-left: 0; }
+/* MOBILE (Telefon Pintar) */
+@media screen and (max-width: 600px) {
+    body{ padding:10px; }
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+    .calculator-card[style*="span 2"] {
+        grid-column: 1 / -1 !important; 
+    }
+    .button-group{ flex-direction:column; }
+    .btn, .button-group button{ width:100%; }
+    .result-row{ gap:10px; }
+    .result-row strong, .result-row input{ min-width:90px; font-size:13px; }
+}
+
+/* ACCESSIBILITY & UTILITIES */
+button:focus, input:focus, select:focus{ outline: 2px solid #1f4e79; outline-offset: 2px; }
+button{ user-select:none; }
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button{ opacity:.5; }
+
+/* PRINT VERSION */
+@media print{
+    body{ background:white; }
+    .button-group{ display:none; }
+    .calculator-card{ box-shadow:none; border: 1px solid #ddd; break-inside:avoid; }
+    .warning-box{ border: 1px solid #ddd; }
+}
+/* --- KAWALAN SAIZ TEKS BAKI UPAH --- */
+#orpBakiAmount {
+    font-size: clamp(14px, 3vw, 20px) !important;
+    white-space: nowrap !important;
+}
+
+/* Memastikan kotak tidak bertindih jika skrin kecil */
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 5px;
 }
