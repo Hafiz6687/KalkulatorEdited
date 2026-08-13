@@ -1064,3 +1064,33 @@ function logKeluar() {
     document.getElementById("loginPassword").value = "";
     document.getElementById("loginError").style.display = "none";
 }
+// =====================================================
+// 10. FUNGSI RESET SEMUA (KOSONGKAN KESELURUHAN)
+// =====================================================
+function resetSemua() {
+    // Berikan amaran pengesahan supaya tidak tertekan secara tak sengaja
+    let sah = confirm("Adakah anda pasti mahu memadam KESEMUA data pengiraan? Tindakan ini tidak boleh diundur.");
+    
+    if (sah) {
+        // Panggil semua fungsi reset yang sedia ada tanpa mengganggu sistem
+        resetORP();
+        resetBakiUpah();
+        resetOTBiasa();
+        resetHariRehat();
+        resetHariRehatLebih();
+        resetSeksyen18A();
+        resetOTRH();
+        resetPH();
+        resetOTPH();
+        resetKelayakanCuti();
+        resetCutiTahunan();
+        resetKelayakanCutiSakit();
+        resetCutiSakit();
+        resetGGNUnified();
+        resetTBB();
+        resetRumusan();
+        
+        // Bawa paparan pengguna kembali ke paling atas
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
