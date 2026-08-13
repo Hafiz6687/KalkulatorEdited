@@ -1184,3 +1184,126 @@ function autoMasukRumusan(idSasaran) {
         kemaskiniPatutBayar(selectTerbaru);
     }
 }
+// =====================================================
+// ENGINE 2026: MULTI-INSTANCE & CONTEXT SWITCHER
+// Amaran: Modul ini ditambah tanpa merosakkan fungsi asal
+// =====================================================
+
+// 1. Gantikan fungsi getElement() asal supaya ia faham "Kad mana yang sedang aktif?"
+let activeCardContext = null;
+const originalGetElement = getElement;
+
+window.getElement = function(id) {
+    // Jika sistem sedang mengira di dalam satu kad klon tertentu
+    if (activeCardContext) {
+        // Cari ID yang telah diubah suai atau ID asal yang diikat dalam 'data-original-id'
+        let el = activeCardContext.querySelector(`[data-original-id="${id}"]`);
+        if (el) return el;
+    }
+    // Jatuh semula ke fungsi asal
+    return originalGetElement(id);
+};
+
+// 2. Override addEventListener untuk auto-update RM supaya sokong clone
+document.addEventListener("input", function(event) {
+    // Override 'id' value untuk event dari kad yang diklon
+    let originalId = event.target.getAttribute('data-original-id');
+    let idToUse = originalId ? originalId : event.target.id;
+    
+    // Set konteks kepada kad tempat event ini berlaku supaya fungsi kiraan RM tahu cari elemen mana
+    activeCardContext = event.target.closest('.calculator-card');
+    
+    // Jalankan logik salaryMap yang sedia ada di atas
+    if (idToUse === "orpBasicSalary" || idToUse === "orpAllowance") {
+        Object.keys(salaryMap).forEach(function(key) {
+            if (key !== "orpBasicSalary") {
+                let basicID = key; let allowanceID = salaryMap[key][0]; let totalID = salaryMap[key][1];
+                if (idToUse === "orpBasicSalary") {
+                    let el = getElement(basicID);
+                    if(el) el.value = formatAutoSyncRM(event.target.value); 
+                }
+                if (idToUse === "orpAllowance") {
+                    let el = getElement(allowanceID);
+                    if(el) el.value = formatAutoSyncRM(event.target.value);
+                }
+                updateSalaryTotal(basicID, allowanceID, totalID);
+            }
+        });
+    }
+    
+    Object.keys(salaryMap).forEach(function(key) {
+        let data = salaryMap[key];
+        if (idToUse === key || idToUse === data[0]) updateSalaryTotal(key, data[0], data[1]);
+    });
+    
+    // Clear context lepas selesai
+    activeCardContext = null;
+});
+
+// 3. Fungsi Tambah Kalkulator (SideBar Click)
+window.tambahKalkulator = function(templateId) {
+    // Highlight butang sidebar
+    document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    let templateCard = document.getElementById('card-' + templateId);
+    if (!templateCard) return alert('Kalkulator tidak ditemui!');
+
+    let grid = document.getElementById('active-calculators-grid');
+    let rumusanCard = document.querySelector('.rumusan-card');
+    
+    // Klon kad (Deep Clone)
+    let clone = templateCard.cloneNode(true);
+    clone.classList.remove('hidden-template');
+    
+    // Hasilkan ID unik rawak untuk clone ini
+    let uniqueSuffix = '_' + Math.random().toString(36).substr(2, 9);
+    clone.id = clone.id + uniqueSuffix;
+    clone.style.position = "relative"; // Untuk butang tutup
+
+    // Tambah butang Pangkah (Tutup)
+    let closeBtn = document.createElement('button');
+    closeBtn.className = "close-card-btn";
+    closeBtn.innerHTML = "X";
+    closeBtn.onclick = function() { clone.remove(); };
+    clone.appendChild(closeBtn);
+
+    // Tukar ID elemen di dalam clone supaya tidak clash, tapi simpan rekod 'data-original-id'
+    let allElementsWithId = clone.querySelectorAll('[id]');
+    allElementsWithId.forEach(el => {
+        el.setAttribute('data-original-id', el.id);
+        el.id = el.id + uniqueSuffix;
+        
+        // Bersihkan data jika ini adalah kad kedua (Klon) supaya kosong
+        if(el.tagName === 'INPUT' && el.type !== 'button') el.value = "";
+        if(el.tagName === 'STRONG' || el.tagName === 'SPAN') {
+            if(el.innerText.includes('RM')) el.innerText = 'RM 0.00';
+            else if(el.innerText !== 'Kadar Sehari' && el.innerText !== 'Bayaran' && el.innerText !== 'Hari Bekerja') el.innerText = '-';
+        }
+    });
+
+    // Menipu onClick attribute pada butang supaya ia set konteks terlebih dahulu
+    let allButtons = clone.querySelectorAll('button');
+    allButtons.forEach(btn => {
+        let oriClick = btn.getAttribute('onclick');
+        if (oriClick && !oriClick.includes('clone.remove')) {
+            // Wrapper function yang set activeCardContext sebelum jalankan function asal
+            btn.removeAttribute('onclick');
+            btn.addEventListener('click', function(e) {
+                activeCardContext = clone;
+                eval(oriClick); // Run fungsi asal (cth: calculateOTBiasa())
+                activeCardContext = null;
+            });
+        }
+    });
+
+    // Letakkan kad baharu sebelum kad Rumusan
+    if (rumusanCard) {
+        grid.insertBefore(clone, rumusanCard);
+    } else {
+        grid.appendChild(clone);
+    }
+
+    // Scroll ke kalkulator yang baru ditambah
+    clone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
