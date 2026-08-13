@@ -11,7 +11,7 @@
 <!-- ========================================== -->
 <!-- SISTEM LOGIN SIMPLE -->
 <!-- ========================================== -->
-<div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 99999; display: flex; justify-content: center; align-items: center;">
+<div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 99999; display: none; justify-content: center; align-items: center;">    
     <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 2px solid #1f4e79; width: 90%; max-width: 400px;">
         <h2 style="color: #1f4e79; margin-top: 0;">Log Masuk Sistem</h2>
         <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Sila masukkan kata laluan untuk mengakses Kalkulator Akta Kerja 1955.</p>
@@ -27,7 +27,7 @@
 <!-- ========================================== -->
 <!-- BUTANG TERAPUNG (KEMAS KINI WARNA & KEDUDUKAN) -->
 <!-- ========================================== -->
-<button onclick="logKeluar()" class="btn-floating log-keluar">⏻ Log Keluar</button>
+<button id="butangAuth" onclick="paparLogMasuk()" class="btn-floating log-keluar" style="background: #1f4e79; border-color: #1f4e79;">🔑 Log Masuk</button>  
 <button onclick="resetSemua()" class="btn-floating reset-semua-baru">🔄 Reset Semua</button>
 <!-- Butang Jana Laporan Penuh telah dipindahkan ke dalam Sidebar -->
 
