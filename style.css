@@ -70,50 +70,55 @@ body {
     margin: 10px 0 15px 10px;
 }
 
-/* --- EFEK BUTANG KEBABOOOM 2026 DISUNTIK DI SINI --- */
+/* --- GAYA BUTANG KORPORAT & MINIMALIS (MENGGANTIKAN KEBABOOOM LAMA) --- */
 .menu-btn {
     width: 100%;
     text-align: left;
-    padding: 14px 15px;
+    padding: 12px 15px;
     background: transparent;
     border: none;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 6px; /* Bentuk lebih petak, gaya profesional */
+    font-size: 13.5px;
+    font-weight: 500;
     color: #4a5568;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    gap: 15px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
     position: relative;
-    overflow: hidden;
 }
 
 .menu-btn .icon {
-    font-size: 17px;
-    transition: transform 0.3s ease;
+    font-size: 15px;
+    width: 20px; /* Saiz tetap supaya teks sentiasa selari (aligned) */
+    text-align: center;
+    color: #a0aec0; /* Ikon warna kelabu lembut secara lalai */
+    transition: color 0.2s ease;
 }
 
 .menu-btn:hover {
-    background: rgba(31, 78, 121, 0.05);
+    background: #f1f5f9; /* Latar kelabu cair bila disentuh */
     color: #1f4e79;
-    transform: translateX(6px); /* Butang meluncur sedikit ke kanan bila disentuh */
+    transform: translateX(4px); /* Pergerakan lebih halus dan sopan */
 }
 
 .menu-btn:hover .icon {
-    transform: scale(1.25); /* Ikon membesar sedikit */
+    color: #1f4e79; /* Ikon bertukar warna senada */
 }
 
 .menu-btn.active {
-    background: linear-gradient(135deg, #1f4e79, #2b6cb0); /* Efek warna kecerunan */
-    color: #ffffff;
-    box-shadow: 0 6px 15px rgba(31, 78, 121, 0.3); /* Bayang 3D */
+    background: #e8f0fe; /* Warna flat korporat Google (bukan lagi gradient menyala) */
+    color: #1f4e79;
+    font-weight: 700;
+    box-shadow: none; /* Buang shadow tebal */
+    border-left: 4px solid #1f4e79; /* Calit biru eksklusif di sebelah kiri */
+    border-radius: 2px 6px 6px 2px;
 }
 
 .menu-btn.active .icon {
-    filter: brightness(2); /* Jadikan ikon lebih cerah */
+    color: #1f4e79;
 }
 
 /* --- 3. KANDUNGAN UTAMA (KANAN) --- */
