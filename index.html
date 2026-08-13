@@ -24,10 +24,12 @@
     </div>
 </div>
 
-<!-- BUTANG TERAPUNG KEKAL SAMA -->
+<!-- ========================================== -->
+<!-- BUTANG TERAPUNG (KEMAS KINI WARNA & KEDUDUKAN) -->
+<!-- ========================================== -->
 <button onclick="logKeluar()" class="btn-floating log-keluar">⏻ Log Keluar</button>
-<button onclick="resetSemua()" class="btn-floating reset-semua">🔄 Reset Semua</button>
-<button onclick="janaLaporanPenuh()" class="btn-floating jana-pdf">📄 Jana Laporan Penuh</button>
+<button onclick="resetSemua()" class="btn-floating reset-semua-baru">🔄 Reset Semua</button>
+<!-- Butang Jana Laporan Penuh telah dipindahkan ke dalam Sidebar -->
 
 <!-- ========================================== -->
 <!-- STRUKTUR UI BAHARU (SIDEBAR + MAIN CONTENT) -->
@@ -106,6 +108,12 @@
       <button class="menu-btn" onclick="tambahKalkulator('faedah')">
         <span class="icon">💼</span> 
         <span style="font-size: 14px; text-transform: uppercase;">Faedah Penamatan</span>
+      </button>
+      
+      <!-- BUTANG JANA LAPORAN PENUH (DI BAWAH FAEDAH PENAMATAN) -->
+      <button class="menu-btn" onclick="janaLaporanPenuh()" style="margin-top: 35px; background: #28a745; color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(40,167,69,0.3);">
+        <span class="icon" style="filter: brightness(2);">📄</span> 
+        <span style="font-size: 14px; text-transform: uppercase; font-weight: bold;">Jana Laporan Penuh</span>
       </button>
     </div>
   </aside>
