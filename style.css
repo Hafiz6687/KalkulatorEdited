@@ -188,12 +188,21 @@ body {
     position: fixed; z-index: 1000; border: none; font-weight: bold; cursor: pointer; transition: 0.2s;
 }
 
-/* Log Keluar: Kekal di Atas Kanan, Warna Merah */
+/* Log Keluar / Masuk: Kekal di Atas Kanan, Bentuk bulat bujur seperti Reset Semua */
 .log-keluar { 
-    top: 20px; right: 20px; background: #dc3545; color: white; 
-    padding: 10px 18px; border-radius: 6px; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    top: 25px; right: 30px; 
+    color: white; 
+    padding: 12px 25px; 
+    font-size: 15px; 
+    border-radius: 30px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
-.log-keluar:hover { background: #c82333; transform: translateY(-2px); }
+.log-keluar:hover { 
+    transform: translateY(-3px); 
+    filter: brightness(1.1); /* Efek terang sedikit bila disentuh, sesuai untuk warna biru atau merah */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
 
 /* Reset Semua: Mengambil tempat, bentuk, & gaya Jana Laporan (Bawah Kanan), Warna Kuning */
 .reset-semua-baru { 
