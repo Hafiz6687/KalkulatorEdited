@@ -740,25 +740,68 @@ function kiraBakiBaris(elemenDalamBaris) {
     
     const baki = telahBayar - patutBayar; 
     
-    if (baki > 0) { inputBaki.value = "+" + formatRMRumusan(baki); inputBaki.style.color = "#28a745"; } 
-    else if (baki < 0) { inputBaki.value = "-" + formatRMRumusan(Math.abs(baki)); inputBaki.style.color = "#d9534f"; } 
-    else { inputBaki.value = formatRMRumusan(0); inputBaki.style.color = "#333"; }
+    // PENTING: Simpan nilai baki sebenar (berserta -/+) dalam 'data-value' 
+    // supaya pengiraan Jumlah Keseluruhan matematik tetap tepat.
+    inputBaki.setAttribute('data-value', baki);
+    
+    // PAPARAN VISUAL: Hanya tunjuk amaun tanpa simbol (-/+), bergantung sepenuhnya pada warna
+    if (baki > 0) { 
+        inputBaki.value = formatRMRumusan(baki); 
+        inputBaki.style.color = "#28a745"; // Hijau (Terlebih Bayar - Mengurangkan tuntutan)
+    } 
+    else if (baki < 0) { 
+        inputBaki.value = formatRMRumusan(Math.abs(baki)); // Math.abs membuang simbol tolak secara visual
+        inputBaki.style.color = "#d9534f"; // Merah (Kurang Bayar - Menambah tuntutan)
+    } 
+    else { 
+        inputBaki.value = formatRMRumusan(0); 
+        inputBaki.style.color = "#333"; 
+    }
+    
     kiraJumlahKeseluruhanRumusan();
 }
 
-function buangBarisRumusan(butangPadam) { butangPadam.closest('tr').remove(); kiraJumlahKeseluruhanRumusan(); }
-function resetRumusan() { document.getElementById('badanJadualRumusan').innerHTML = ''; kiraJumlahKeseluruhanRumusan(); }
-
-function kiraJumlahKeseluruhanRumusan() {
-    const semuaBaki = document.querySelectorAll('.baki-baris'); let jumlahBesar = 0;
-    semuaBaki.forEach(input => { jumlahBesar += unformatRMRumusan(input.value); });
-    const teksJumlah = document.getElementById('jumlahKeseluruhanRumusan');
-    
-    if (jumlahBesar > 0) { teksJumlah.innerText = "+" + formatRMRumusan(jumlahBesar); teksJumlah.style.color = "#28a745"; } 
-    else if (jumlahBesar < 0) { teksJumlah.innerText = "-" + formatRMRumusan(Math.abs(jumlahBesar)); teksJumlah.style.color = "#d9534f"; } 
-    else { teksJumlah.innerText = formatRMRumusan(0); teksJumlah.style.color = "#1f4e79"; }
+function buangBarisRumusan(butangPadam) { 
+    butangPadam.closest('tr').remove(); 
+    kiraJumlahKeseluruhanRumusan(); 
 }
 
+function resetRumusan() { 
+    document.getElementById('badanJadualRumusan').innerHTML = ''; 
+    kiraJumlahKeseluruhanRumusan(); 
+}
+
+function kiraJumlahKeseluruhanRumusan() {
+    const semuaBaki = document.querySelectorAll('.baki-baris'); 
+    let jumlahBesar = 0;
+    
+    semuaBaki.forEach(input => { 
+        // BACA NILAI DARI MEMORI TERSEMBUNYI (data-value), BUKAN DARI KOTAK PAPARAN
+        // Ini memastikan logik penambahan tuntutan (-) dan penolakan tuntutan (+) kekal selamat 100%
+        let nilaiSebenar = input.getAttribute('data-value');
+        if (nilaiSebenar !== null) {
+            jumlahBesar += parseFloat(nilaiSebenar); 
+        } else {
+            jumlahBesar += unformatRMRumusan(input.value); 
+        }
+    });
+    
+    const teksJumlah = document.getElementById('jumlahKeseluruhanRumusan');
+    
+    // KEMAS KINI PAPARAN JUMLAH KESELURUHAN (Hanya tunjuk amaun & warna)
+    if (jumlahBesar > 0) { 
+        teksJumlah.innerText = formatRMRumusan(jumlahBesar); 
+        teksJumlah.style.color = "#28a745"; 
+    } 
+    else if (jumlahBesar < 0) { 
+        teksJumlah.innerText = formatRMRumusan(Math.abs(jumlahBesar)); 
+        teksJumlah.style.color = "#d9534f"; 
+    } 
+    else { 
+        teksJumlah.innerText = formatRMRumusan(0); 
+        teksJumlah.style.color = "#1f4e79"; 
+    }
+}
 // =====================================================
 // 8. FUNGSI JANA LAPORAN PENUH (PDF + RUMUSAN)
 // =====================================================
