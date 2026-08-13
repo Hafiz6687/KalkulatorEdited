@@ -1080,10 +1080,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // 3. Fungsi Log Keluar
 function logKeluar() {
-    // Tukar butang kembali kepada "Log Masuk" (Warna Biru)
+    // Tukar butang kembali kepada "Log Masuk" (Warna Biru dan Ikon Power)
     let btn = document.getElementById("butangAuth");
     if (btn) {
-        btn.innerHTML = "🔑 Log Masuk";
+        btn.innerHTML = "⏻ Log Masuk";
         btn.style.background = "#1f4e79"; // Warna biru
         btn.style.borderColor = "#1f4e79";
         btn.setAttribute("onclick", "paparLogMasuk()");
