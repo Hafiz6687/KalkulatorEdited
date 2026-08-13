@@ -1094,3 +1094,93 @@ function resetSemua() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
+// =====================================================
+// 11. SISTEM AUTO-TAMBAH RUMUSAN (SMART EXTRACT)
+// =====================================================
+
+// Tambah 'Baki Upah' ke dalam senarai dropdown secara automatik (Jika belum wujud)
+let semakBaki = senaraiKalkulatorRumusan.find(item => item.nilai === "orpBakiAmount");
+if (!semakBaki) {
+    senaraiKalkulatorRumusan.push({ nilai: "orpBakiAmount", teks: "Baki Upah / Gaji (ORP)" });
+}
+
+// Pemerhati (Listener) untuk mengesan setiap butang yang ditekan dalam sistem
+document.addEventListener('click', function(event) {
+    let btn = event.target.closest('button');
+    if (!btn) return;
+
+    let fungsiKira = btn.getAttribute('onclick');
+    if (!fungsiKira) return;
+
+    let idSasaran = "";
+
+    // Kenal pasti butang "Kira" mana yang ditekan dan padankan dengan ID Rumusan
+    if (fungsiKira.includes("calculateOTBiasa()")) idSasaran = "otAmount";
+    else if (fungsiKira.includes("calculateHariRehat()")) idSasaran = "rhAmount";
+    else if (fungsiKira.includes("calculateHariRehatLebih()")) idSasaran = "rhMoreAmount";
+    else if (fungsiKira.includes("calculate18ANew()")) idSasaran = "amount18A";
+    else if (fungsiKira.includes("calculateOTRH()")) idSasaran = "otRHAmount";
+    else if (fungsiKira.includes("calculatePH()")) idSasaran = "phAmount";
+    else if (fungsiKira.includes("calculateOTPH()")) idSasaran = "otPHAmount";
+    else if (fungsiKira.includes("calculateCutiTahunan()")) idSasaran = "annualLeaveAmount";
+    else if (fungsiKira.includes("calculateCutiSakit()")) idSasaran = "sickLeaveAmount";
+    else if (fungsiKira.includes("calculateTBB()")) idSasaran = "tbbAmount";
+    else if (fungsiKira.includes("calculateBakiUpah()")) idSasaran = "orpBakiAmount";
+    else if (fungsiKira.includes("calculateGGNUnified()")) {
+        let mode = document.getElementById("ggnUniType").value;
+        if (mode === "bulan") idSasaran = "resUniMonthAmount";
+        else if (mode === "minggu" || mode === "hari") idSasaran = "resUni18AAmount";
+    }
+
+    if (idSasaran !== "") {
+        // Tunggu 200ms untuk biarkan fungsi pengiraan asal anda selesai bertugas dahulu
+        setTimeout(() => {
+            let valid = false;
+            let elemenSasaran = document.getElementById(idSasaran);
+            
+            // Semak adakah hasil pengiraan sah (melebihi RM 0 atau berisi)
+            if (idSasaran === "orpBakiAmount") {
+                let patut = document.getElementById("orpPatutTerima");
+                if (patut && patut.value && patut.value.trim() !== "") valid = true;
+            } else if (elemenSasaran) {
+                let nilaiDuit = unformatRMRumusan(elemenSasaran.innerText);
+                if (nilaiDuit > 0) valid = true;
+            }
+
+            // Jika sah dan ada keputusan, tolak masuk ke jadual Rumusan
+            if (valid) {
+                autoMasukRumusan(idSasaran);
+            }
+        }, 200);
+    }
+});
+
+function autoMasukRumusan(idSasaran) {
+    const jadual = document.getElementById('badanJadualRumusan');
+    const senaraiSelect = jadual.querySelectorAll('select');
+    let barisWujud = null;
+    
+    // 1. Semak kalau jenis bayaran ini dah ada dalam jadual (Elak duplicate row)
+    senaraiSelect.forEach(select => {
+        if (select.value === idSasaran) barisWujud = select;
+    });
+
+    // 2. Jika dah wujud, kita cuma update nilai dia (Refresh)
+    if (barisWujud) {
+        kemaskiniPatutBayar(barisWujud);
+    } 
+    // 3. Jika belum wujud, kita bina baris baharu!
+    else {
+        tambahBarisRumusan(); // Panggil fungsi manual sedia ada
+        
+        // Cari kotak select dropdown di baris yang paling terbaharu ditambah
+        let semuaSelectBaru = jadual.querySelectorAll('select');
+        let selectTerbaru = semuaSelectBaru[semuaSelectBaru.length - 1];
+        
+        // Pilih jenis bayaran secara automatik
+        selectTerbaru.value = idSasaran;
+        
+        // Trigger / paksa pengiraan rumusan berlaku
+        kemaskiniPatutBayar(selectTerbaru);
+    }
+}
