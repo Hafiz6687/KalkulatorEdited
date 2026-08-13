@@ -1,0 +1,246 @@
+/* =====================================================
+   KALKULATOR AKTA KERJA 1955
+   PROFESSIONAL STYLE.CSS - VERSI GRID 4 LAJUR (KUNCI)
+===================================================== */
+
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+*{ margin:0; padding:0; box-sizing:border-box; font-family: Arial, Helvetica, sans-serif; }
+
+/* =====================================================
+   BODY & WRAPPER
+===================================================== */
+body{ background:#f4f6f9; min-height:100vh; padding:20px; }
+.wrapper{ width:100%; max-width:1600px; margin:auto; }
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+.page-title{ text-align:center; margin-bottom:30px; }
+.page-title h1{ font-size:36px; font-weight:700; color:#1f4e79; margin-bottom:10px; }
+.page-title p{ font-size:16px; line-height:1.6; color:#555; }
+
+/* =====================================================
+   CALCULATOR GRID (PAKSA 4 LAJUR TEPAT PADA DESKTOP)
+===================================================== */
+.calculator-grid{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(220px, 1fr)); /* Paksa 4 lajur & elak kotak jadi terlalu kurus */
+    gap: 20px;
+    align-items: stretch !important;
+}
+
+/* =====================================================
+   CALCULATOR CARD
+===================================================== */
+.calculator-card{
+    background:white;
+    border-radius:15px;
+    padding:22px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+    transition: transform .2s ease, box-shadow .2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.calculator-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
+}
+
+.calculator-card h2{
+    text-align:center;
+    color:#1f4e79;
+    font-size:24px;
+    line-height:1.3;
+    margin-bottom:18px;
+}
+
+/* =====================================================
+   FORM GROUP & INPUTS
+===================================================== */
+.form-group{ margin-bottom:15px; }
+.form-group label{ display:block; font-weight:bold; color:#333; margin-bottom:6px; }
+
+.salary-input, .salary-total, .number-input, .date-input, .select-input{
+    width:100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    background:white;
+    outline:none;
+}
+
+.salary-input:focus, .salary-total:focus, .number-input:focus, .date-input:focus, .select-input:focus{
+    border-color:#1f4e79;
+}
+
+.salary-total{ background:#f1f1f1; font-weight:bold; }
+.number-input{ text-align:left; }
+.select-input{ cursor:pointer; }
+
+/* =====================================================
+   BUTTON SYSTEM
+===================================================== */
+.button-group{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.btn, .button-group button{
+    flex:1;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+    background:#1f4e79;
+    color:white;
+}
+
+.btn:hover, .button-group button:hover{ opacity:.9; }
+.btn-primary{ background:#1f4e79; color:white; }
+.btn-primary:hover{ background:#163a5c; }
+.btn-reset, .reset-btn{ background:#dc3545 !important; color:white; }
+.btn-reset:hover, .reset-btn:hover{ background:#b52a37 !important; }
+
+/* =====================================================
+   RESULT CONTAINER
+===================================================== */
+.result-box, .result-section{
+    background:#f8fafc;
+    border-left: 5px solid #1f4e79;
+    border-radius:8px;
+    padding: 15px 18px;
+    margin-top: auto; /* Tolak result ke bawah secara automatik */
+}
+
+.result-box h3, .result-section h3{
+    display:block;
+    width:100%;
+    margin: 0 0 15px;
+    text-align:center;
+    font-size:20px;
+    font-weight:700;
+    color:#1f4e79;
+}
+
+/* =====================================================
+   RESULT ROWS & TABLES
+===================================================== */
+.result-row{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    align-items:center;
+    width:100%;
+    gap:20px;
+    padding:8px 0;
+}
+
+.result-row label, .result-row > span:first-child{
+    font-size:14px;
+    font-weight:600;
+    color:#333;
+    line-height:1.4;
+    text-align:left;
+}
+
+.result-row strong, .result-row input{
+    min-width:120px;
+    font-size:14px;
+    font-weight:700;
+    color:#111;
+    text-align:right;
+    border:none;
+    background:transparent;
+    outline:none;
+}
+
+/* SEKSYEN 18A TBL */
+.section18a-breakdown{ width:100%; margin-top:15px; border-radius:8px; overflow:hidden; }
+.section18a-header, .section18a-row{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; width:100%; }
+.section18a-header{ background:#1f4e79; color:white; font-weight:bold; }
+.section18a-row{ background:white; border-bottom: 1px solid #ddd; }
+.section18a-header span, .section18a-row span{ padding:10px; font-size:14px; text-align:center; }
+.section18a-row span:first-child{ text-align:left; }
+.section18a-row span:nth-child(2), .section18a-row span:nth-child(3){ text-align:right; }
+
+/* =====================================================
+   WARNING BOX
+===================================================== */
+.warning-box{
+    margin-top:30px;
+    background:#fff8e1;
+    border-left: 6px solid #ffc107;
+    padding:22px 25px;
+    border-radius:12px;
+}
+.warning-box h3{ text-align:center; font-size:18px; font-weight:700; color:#856404; margin-bottom:15px; }
+.warning-box ol{ padding-left:28px; margin:0; }
+.warning-box li{ margin-bottom:10px; line-height:1.5; font-size:14px; color:#444; }
+
+/* =====================================================
+   RESPONSIVE LAYOUT (MEDIA QUERIES DIPERBAIKI)
+===================================================== */
+
+/* TABLET KECIL (Skrin diturunkan kepada 950px ke bawah) */
+@media screen and (max-width: 950px) {
+    .calculator-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Magik: Jika skrin masuk mod 2 lajur, kita matikan 'span 2' 
+       supaya ia kembali jadi saiz kotak biasa dan muat bersebelahan! */
+    .calculator-card[style*="span 2"] {
+        grid-column: span 1 !important;
+    }
+}
+
+/* MOBILE (Telefon Pintar) */
+@media screen and (max-width: 600px) {
+    body{ padding:10px; }
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+    .calculator-card[style*="span 2"] {
+        grid-column: 1 / -1 !important; 
+    }
+    .button-group{ flex-direction:column; }
+    .btn, .button-group button{ width:100%; }
+    .result-row{ gap:10px; }
+    .result-row strong, .result-row input{ min-width:90px; font-size:13px; }
+}
+
+/* ACCESSIBILITY & UTILITIES */
+button:focus, input:focus, select:focus{ outline: 2px solid #1f4e79; outline-offset: 2px; }
+button{ user-select:none; }
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button{ opacity:.5; }
+
+/* PRINT VERSION */
+@media print{
+    body{ background:white; }
+    .button-group{ display:none; }
+    .calculator-card{ box-shadow:none; border: 1px solid #ddd; break-inside:avoid; }
+    .warning-box{ border: 1px solid #ddd; }
+}
+/* --- KAWALAN SAIZ TEKS BAKI UPAH --- */
+#orpBakiAmount {
+    font-size: clamp(14px, 3vw, 20px) !important;
+    white-space: nowrap !important;
+}
+
+/* Memastikan kotak tidak bertindih jika skrin kecil */
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 5px;
+}
