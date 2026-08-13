@@ -1030,8 +1030,17 @@ function janaLaporanPenuh() {
     setTimeout(() => { tetingkapCetak.focus(); tetingkapCetak.print(); }, 500);
 }
 // =====================================================
-// 9. SISTEM LOGIN SIMPLE
+// 9. SISTEM LOGIN SIMPLE (DIKEMAS KINI: TOGGLE MASUK/KELUAR)
 // =====================================================
+
+// 1. Fungsi untuk tunjukkan skrin Login apabila butang "Log Masuk" ditekan
+function paparLogMasuk() {
+    document.getElementById("loginOverlay").style.display = "flex";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("loginError").style.display = "none";
+}
+
+// 2. Fungsi Semak Password
 function semakLogin() {
     let inputLaluan = document.getElementById("loginPassword").value;
     let ralatMesej = document.getElementById("loginError");
@@ -1042,6 +1051,15 @@ function semakLogin() {
     if (inputLaluan === kataLaluanSebenar) {
         // Jika betul, sembunyikan tirai login
         document.getElementById("loginOverlay").style.display = "none";
+        
+        // Tukar butang kepada "Log Keluar" (Warna Merah)
+        let btn = document.getElementById("butangAuth");
+        if (btn) {
+            btn.innerHTML = "⏻ Log Keluar";
+            btn.style.background = "#dc3545"; // Warna merah
+            btn.style.borderColor = "#dc3545";
+            btn.setAttribute("onclick", "logKeluar()");
+        }
     } else {
         // Jika salah, tunjukkan amaran warna merah
         ralatMesej.style.display = "block";
@@ -1059,10 +1077,20 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+// 3. Fungsi Log Keluar
 function logKeluar() {
-    document.getElementById("loginOverlay").style.display = "flex";
-    document.getElementById("loginPassword").value = "";
-    document.getElementById("loginError").style.display = "none";
+    // Tukar butang kembali kepada "Log Masuk" (Warna Biru)
+    let btn = document.getElementById("butangAuth");
+    if (btn) {
+        btn.innerHTML = "🔑 Log Masuk";
+        btn.style.background = "#1f4e79"; // Warna biru
+        btn.style.borderColor = "#1f4e79";
+        btn.setAttribute("onclick", "paparLogMasuk()");
+    }
+    
+    // Pilihan: Beri amaran pop-up kecil kepada user
+    alert("Anda telah berjaya log keluar dari sistem.");
 }
 // =====================================================
 // 10. FUNGSI RESET SEMUA (KOSONGKAN KESELURUHAN)
