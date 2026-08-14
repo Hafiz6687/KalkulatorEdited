@@ -1378,3 +1378,99 @@ window.tambahKalkulator = function(templateId) {
     // Scroll ke kalkulator yang baru ditambah
     clone.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
+// =====================================================
+// SISTEM JANA LAPORAN PENUH & PRATONTON (BEBAS GANGGUAN)
+// =====================================================
+
+// 1. Fungsi butang "Jana Laporan Penuh" di Sidebar
+function janaLaporanPenuh() {
+    // Munculkan Pop-up minta Nama & IC
+    document.getElementById('modalPengaduOverlay').style.display = 'flex';
+    // Sorok butang Daftar (sekiranya user mula proses baru)
+    document.getElementById('btnDaftarLaporan').style.display = 'none';
+}
+
+function tutupModalPengadu() {
+    document.getElementById('modalPengaduOverlay').style.display = 'none';
+}
+
+// 2. Fungsi apabila butang "Pratonton" ditekan
+function bukaPreview() {
+    const nama = document.getElementById('inputNamaPengadu').value.trim();
+    const ic = document.getElementById('inputICPengadu').value.trim();
+
+    if (!nama || !ic) {
+        alert("Sila masukkan Nama Penuh dan No. Kad Pengenalan untuk menjana laporan.");
+        return;
+    }
+
+    tutupModalPengadu(); // Tutup pop-up
+
+    // -- MANIPULASI VISUAL SAHAJA (DATA KALKULATOR SELAMAT) --
+    // Sembunyikan Sidebar & Butang Terapung supaya nampak seperti laporan penuh
+    document.querySelector('.sidebar-2026').style.display = 'none';
+    document.querySelectorAll('.btn-floating').forEach(btn => btn.style.display = 'none');
+    
+    // Anjakkan sedikit skrin ke bawah supaya tidak bertindih dengan Top Action Bar
+    document.querySelector('.main-content').style.paddingTop = '80px';
+
+    // Masukkan kotak Maklumat Pengadu (Nama & IC) secara dinamik di bawah Tajuk Utama
+    let maklumatDiv = document.getElementById('cetakMaklumatPengadu');
+    if (!maklumatDiv) {
+        maklumatDiv = document.createElement('div');
+        maklumatDiv.id = 'cetakMaklumatPengadu';
+        maklumatDiv.style.cssText = "background: white; padding: 20px 30px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; border-left: 5px solid #10b981; box-shadow: 0 4px 10px rgba(0,0,0,0.05);";
+        
+        // Letak di bawah tajuk H1
+        const mainHeader = document.querySelector('.main-header');
+        mainHeader.parentNode.insertBefore(maklumatDiv, mainHeader.nextSibling);
+    }
+
+    maklumatDiv.innerHTML = `
+        <h3 style="margin-top: 0; color: #1e293b; margin-bottom: 12px; font-size: 15px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Maklumat Pengadu</h3>
+        <div style="display: flex; gap: 50px;">
+            <div><span style="color: #64748b; font-size: 13px; font-weight: 600;">Nama Penuh:</span><br><strong style="font-size: 16px; color: #0f172a;">${nama}</strong></div>
+            <div><span style="color: #64748b; font-size: 13px; font-weight: 600;">No. Kad Pengenalan:</span><br><strong style="font-size: 16px; color: #0f172a;">${ic}</strong></div>
+        </div>
+    `;
+    maklumatDiv.style.display = 'block';
+
+    // Munculkan Bar Tindakan (Kemaskini, Cetak) di atas
+    document.getElementById('previewActionBar').style.display = 'flex';
+}
+
+// 3. Fungsi jika user klik "Kemaskini"
+function kemaskiniLaporan() {
+    // Kembalikan UI ke bentuk asal
+    document.querySelector('.sidebar-2026').style.display = 'flex';
+    document.querySelectorAll('.btn-floating').forEach(btn => btn.style.display = 'block');
+    document.querySelector('.main-content').style.paddingTop = '30px'; // Kembalikan padding asal
+    
+    // Sorok Bar Tindakan & Maklumat Pengadu
+    document.getElementById('previewActionBar').style.display = 'none';
+    const maklumatDiv = document.getElementById('cetakMaklumatPengadu');
+    if (maklumatDiv) maklumatDiv.style.display = 'none';
+}
+
+// 4. Fungsi Cetak
+function cetakLaporan() {
+    // Sorok Action Bar sementara supaya tak masuk dalam PDF Print
+    document.getElementById('previewActionBar').style.display = 'none';
+    
+    // Buka dialog print browser
+    window.print();
+    
+    // Tunjuk kembali Action Bar selepas dialog print ditutup (Delay 500ms supaya selamat)
+    setTimeout(() => {
+        document.getElementById('previewActionBar').style.display = 'flex';
+        // AJAIB: Butang DAFTAR kini muncul!
+        document.getElementById('btnDaftarLaporan').style.display = 'inline-block';
+    }, 500);
+}
+
+// 5. Fungsi Daftar
+function daftarLaporan() {
+    // Boleh digantikan dengan logik menghantar data ke pangkalan data jika ada.
+    alert("Tahniah! Laporan Pengadu (No. IC: " + document.getElementById('inputICPengadu').value + ") telah didaftarkan dengan jayanya.");
+    kemaskiniLaporan(); // Kembali ke skrin utama selepas selesai
+}
