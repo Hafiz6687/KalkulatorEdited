@@ -120,7 +120,7 @@ body {
 .main-content {
     flex: 1;
     overflow-y: auto;
-    padding: 30px 50px;
+    padding: 30px 30px; /* Dikurangkan sedikit dari 50px supaya ruang tengah lebih luas untuk 2 kad */
     background: #f8fafc; 
     position: relative;
     scroll-behavior: smooth;
@@ -130,23 +130,31 @@ body {
 .main-header h1 { font-size: 30px; color: #0f172a; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.5px; }
 .main-header p { font-size: 14px; color: #64748b; font-weight: 500; }
 
-/* --- 4. GRID & KAD KALKULATOR (GAYA MODERN SAAS) --- */
-.calculator-grid { display: flex; flex-wrap: wrap; gap: 25px; align-items: flex-start; }
+/* --- 4. GRID & KAD KALKULATOR (GAYA MODERN SAAS - DIKEMAS KINI UNTUK 2 LAJUR) --- */
+.calculator-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); /* Menggunakan CSS Grid pintar supaya automatik susun minimum 2 lajur */
+    gap: 25px; 
+    align-items: start; 
+}
 
 .calculator-card {
     background: #ffffff;
     border-radius: 16px; 
-    padding: 35px 30px;
+    padding: 30px 25px; /* Padding diselaraskan supaya kad muat kemas sebelah menyebelah */
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08); 
-    flex: 1 1 350px; 
-    max-width: 450px;
     border: 1px solid #e2e8f0; 
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .calculator-card:hover { box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12); }
-.calculator-card[style*="span 2"], .rumusan-card { max-width: 100% !important; flex: 1 1 100% !important; }
+
+/* Memastikan kad yang besar (contoh: Cuti Tahunan) dan Rumusan mengambil lebar penuh yang betul dalam CSS Grid */
+.calculator-card[style*="span 2"], .rumusan-card { 
+    grid-column: 1 / -1 !important; 
+}
 
 /* Tajuk Dalam Kad */
 .calculator-card h2 { 
